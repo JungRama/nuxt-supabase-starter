@@ -1,3 +1,16 @@
+<script>
+  definePageMeta({
+    colorMode: 'light',
+  })
+
+  const isOffline = ref(false)
+
+  onMounted(() => {
+    window.addEventListener('offline', () => isOffline.value = true)
+    window.addEventListener('online', () => isOffline.value = false)
+  })
+</script>
+
 <template>
   <div>
     <NuxtLayout>
@@ -14,10 +27,10 @@
   </div>
 </template>
 
-<script>
-  // const colorMode = useColorMode()
-  definePageMeta({
-    colorMode: 'light',
-  })
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
 
-</script>
+* {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+</style>

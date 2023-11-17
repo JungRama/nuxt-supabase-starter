@@ -8,14 +8,13 @@ export default defineNuxtConfig({
 		redirectOptions: {
 			login: '/sign-in',
 			callback: '/confirm',
-			exclude: [],
+			exclude: ['/', '/sign-up'],
 		},
 	},
 	modules: [
 		'@nuxt/ui',
 		'nuxt-icon',
 		'@nuxtjs/color-mode',
-		'@pinia/nuxt',
 		'@vueuse/nuxt',
 		'@nuxtjs/supabase',
 		// [

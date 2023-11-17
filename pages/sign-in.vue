@@ -15,6 +15,8 @@
     }
   })
 
+  console.log(user.value)
+
   const form = reactive({
     email: undefined,
     password: undefined
@@ -32,7 +34,6 @@
       })
 
       if(signIn.error) {
-        isLoading.value = false
         throw signIn.error.message
       }
 
@@ -56,18 +57,26 @@
 
       if(provider === 'GITHUB') {
         signIn = await auth.signInWithOAuth({
-          provider: 'github'
+          provider: 'github',
+          options: {
+            redirectTo: '/confirm',
+            // skipBrowserRedirect: true
+          }
         })
       }
 
       if(signIn?.error) {
-        isLoading.value = false
         throw signIn.error.message
       }
 
       isLoading.value = false
     } catch (error) {
-      
+      isLoading.value = false
+      toast.add({
+        color: "red",
+        icon: "i-lucide-alert-triangle",
+        title: error as string,
+      })
     }
   }
 </script>

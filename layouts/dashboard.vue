@@ -1,6 +1,10 @@
 <script setup lang="ts">
   const isSearchOpen = ref(false)
 
+  const route = useRoute()
+
+  const routeName = ref(route.name)
+
   onMounted(() => {
     document.addEventListener('keydown', function(event) {
       if (event.ctrlKey && event.key === '/') {
@@ -14,9 +18,9 @@
     icon: 'i-lucide-home',
     to: '/dashboard'
   },{
-    label: 'Notes',
+    label: 'Code Editor',
     icon: 'i-lucide-sticky-note',
-    to: '/dashboard/notes'
+    to: '/dashboard/code-editor'
   }, {
     label: 'Storage',
     icon: 'i-lucide-archive-restore',
@@ -34,7 +38,7 @@
 
 <template>
   <div class="flex max-h-full">
-    <div class="h-full bg-background w-64 px-2 overflow-auto border-r border-gray-200 dark:border-stone-800">
+    <div class="h-full bg-background w-64 px-2 overflow-auto border-r border-gray-200 dark:border-stone-800 sticky top-0">
       <div class="py-2 flex flex-col justify-between h-[100vh]">
         <div class="flex flex-col gap-3">
           <div class="flex items-center justify-start gap-2">
@@ -79,7 +83,7 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-1 flex-col">
+    <div class="flex flex-1 flex-col px-5">
       <slot />
     </div>
 

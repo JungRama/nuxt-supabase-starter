@@ -9,5 +9,6 @@
 		["ui:\\s*{([^)]*)\\s*}", "[\"'`]([^\"'`]*).*?[\"'`]"],
 		["/\\*ui\\*/\\s*{([^;]*)}", ":\\s*[\"'`]([^\"'`]*).*?[\"'`]"]
 	],
-	"tailwindCSS.experimental.configFile": "tailwind.config.ts"
+	"tailwindCSS.experimental.configFile": "tailwind.config.ts",
+	"nuxt.isNuxtApp": false
 }
