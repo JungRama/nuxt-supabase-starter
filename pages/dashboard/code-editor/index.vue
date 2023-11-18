@@ -15,10 +15,6 @@
   
   await executeData()
 
-  definePageMeta({
-    layout: 'dashboard'
-  })
-
   const newCode = async () => {
     const create = await executeCreate()
     if(!create) return
@@ -60,6 +56,19 @@
       </template>
 
       <template v-else>
+        <div class="col-span-12" v-if="data?.length === 0">
+          <div class="relative flex justify-center items-center h-[300px]">
+            <div class="flex flex-col justify-center items-center relative z-10 gap-2">
+              <UIcon name="i-lucide-layout-template" class="h-12 w-12"></UIcon>
+              <h2 class="text-2xl font-bold">Code is empty, <span class="underline cursor-pointer" @click="newCode()">create</span> a new one</h2>
+            </div>
+            <div class="absolute left-0 top-0 flex w-full h-full items-center justify-center" 
+            v-if="$colorMode.value === 'dark'">
+              <img src="/gradient-pattern-square.webp" class="h-[200px] " alt="">
+            </div>
+          </div>
+        </div>
+        
         <div class="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-4" v-for="(item) in data" :key="item.id">
           <UCard>
             <div class="flex justify-between items-center">

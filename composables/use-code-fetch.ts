@@ -30,7 +30,7 @@ const useCodeFetch = () => {
 		async () => {
 			const { data } = await client
 				.from('codes')
-				.select('id, title, language, updated_at, code')
+				.select('id, title, language, updated_at, is_public,code')
 				.eq('id', detailId.value as string)
 				.single()
 			return data
@@ -86,6 +86,7 @@ const useCodeFetch = () => {
 			name?: string
 			language?: string
 			code?: string
+			is_public?: boolean
 		}
 	) => {
 		try {
@@ -95,6 +96,7 @@ const useCodeFetch = () => {
 				...(input.name && { title: input.name }),
 				...(input.language && { language: input.language }),
 				...(input.code && { code: input.code }),
+				...(input.is_public && { is_public: input.is_public }),
 				updated_at: new Date(),
 			}
 

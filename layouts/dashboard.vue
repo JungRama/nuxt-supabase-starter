@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import type { VerticalNavigationLink } from '@nuxt/ui/dist/runtime/types';
+
   const isSearchOpen = ref(false)
 
   const route = useRoute()
+  const router = useRouter()
+
+  const auth = useSupabaseUser()
+  const { auth: authAction } = useSupabaseClient()
 
   const routeName = ref(route.name)
 
@@ -13,27 +19,53 @@
     });
   })
 
-  const linksTopNav = [{
+  // active?: boolean
+  // exact?: boolean
+  // exactQuery?: boolean
+  // exactMatch?: boolean
+  // inactiveClass?: string
+  // label: string
+  // icon?: string
+  // iconClass?: string
+  // avatar?: Avatar
+  // click?: Function
+  // badge?: string | number
+
+  const linksTopNav = reactive([{
     label: 'Dashboard',
     icon: 'i-lucide-home',
+    exact: true,
+    exactQuery: true,
+    exactMatch: true,
     to: '/dashboard'
   },{
     label: 'Code Editor',
-    icon: 'i-lucide-sticky-note',
+    icon: 'i-lucide-terminal-square',
+    exact: true,
+    exactQuery: true,
+    exactMatch: true,
     to: '/dashboard/code-editor'
   }, {
     label: 'Storage',
     icon: 'i-lucide-archive-restore',
+    exact: true,
+    exactQuery: true,
+    exactMatch: true,
     to: '/dashboard/storage'
-  }]
+  }])
 
   const linksBottomNav = [{
     label: 'Search',
     icon: 'i-lucide-search',
     click: () => {
-      console.log('1');
+      isSearchOpen.value = true
     }
   }]
+
+  const signOut = async() => {
+    await authAction.signOut();
+    router.push('/sign-in')
+  }
 </script>
 
 <template>
@@ -51,7 +83,7 @@
 
           <UVerticalNavigation 
           :links="linksTopNav">
-          <template #default="{ link }">
+          <template #default="{ link, isActive }">
             <span class="group-hover:text-primary relative py-2">{{ link.label }}</span>
           </template>
           </UVerticalNavigation>
@@ -70,14 +102,16 @@
           
           <div class="flex items-center justify-between p-3">
             <div class="flex items-center gap-2">
+              <!-- {{ auth }} -->
               <UAvatar
               size="sm"
-              src="https://avatars.githubusercontent.com/u/739984?v=4"
-              alt="Avatar"
+              :alt="auth?.email"
+              :src="auth?.user_metadata.avatar_url ?? null"
               />
-              <p class="text-gray-400 font-bold text-sm">Jung Rama</p>
+              <p class="text-gray-400 font-bold text-sm" v-if="auth?.email">{{auth.email.length > 12 ? auth.email.slice(0, 12) + '...' : auth.email}}</p>
             </div>
-            <UButton color="red" variant="ghost" icon="i-lucide-log-out">
+            <UButton color="red" variant="ghost" icon="i-lucide-log-out"
+            @click="signOut">
             </UButton>
           </div>
         </div>

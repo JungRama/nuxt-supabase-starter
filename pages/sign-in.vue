@@ -2,28 +2,25 @@
   import { signInValidation, type SchemaSignInValidation } from '~/utils/formValidation'
   import type { FormSubmitEvent } from '#ui/types'
 
-  const user = useSupabaseUser()
-  const { auth } = useSupabaseClient()
-
-  const toast = useToast()
-  
-  const redirectTo = `${useRuntimeConfig().public.baseUrl}/confirm`
-
-  watchEffect(() => {
-    if (user.value) {
-      navigateTo('/dashboard')
-    }
+  definePageMeta({
+    middleware: 'guest'
   })
 
-  console.log(user.value)
-
+  const { auth } = useSupabaseClient()
+  const toast = useToast()
+  
   const form = reactive({
     email: undefined,
     password: undefined
   })
-
   const isLoading = ref(false)
 
+  /**
+   * Sign in with credential.
+   *
+   * @param {FormSubmitEvent<SchemaSignInValidation>} event - The form submit event.
+   * @return {Promise<void>} A promise that resolves when the sign-in process is complete.
+   */
   const signInWithCredential = async (event: FormSubmitEvent<SchemaSignInValidation>) => {
     try {
       isLoading.value = true
@@ -37,6 +34,7 @@
         throw signIn.error.message
       }
 
+      navigateTo('/dashboard')
       isLoading.value = false
     } catch (error) {
 
@@ -49,6 +47,11 @@
     }
   }
 
+  /**
+   * Sign in with a provider.
+   *
+   * @param {string} provider - The provider to sign in with. Can be 'GITHUB' or 'GOOGLE'.
+   */
   const signInWithProvider = async (provider: 'GITHUB' | 'GOOGLE') =>  {
     try {
       isLoading.value = true
@@ -60,7 +63,6 @@
           provider: 'github',
           options: {
             redirectTo: '/confirm',
-            // skipBrowserRedirect: true
           }
         })
       }
@@ -69,6 +71,7 @@
         throw signIn.error.message
       }
 
+      navigateTo('/dashboard')
       isLoading.value = false
     } catch (error) {
       isLoading.value = false
@@ -84,7 +87,6 @@
 <template>
   <div>
     <div class="container mx-auto">
-      --{{ user }}
       <div class="flex h-[100vh] w-full justify-center items-center">
         <div class="w-10/12 md:w-8/12 lg:w-4/12 xl:w-3/12">
           <UCard>
@@ -94,6 +96,8 @@
                   <img src="/icon.svg" class="h-[80px]">
                 </div>
 
+                <p class="text-lg font-bold text-center">Welcome Back, enter your credential below.</p>
+
                 <UFormGroup label="Email" name="email">
                   <UInput v-model="form.email" />
                 </UFormGroup>
@@ -101,6 +105,10 @@
                 <UFormGroup label="Password" name="password">
                   <UInput v-model="form.password" type="password" />
                 </UFormGroup>
+                <div class="flex items-center gap-1 justify-start mt-3 text-xs">
+                  <p class="opacity-50">Forgot your password?</p>
+                  <NuxtLink to="/forgot-password" class="underline">click here</NuxtLink>
+                </div>
 
                 <UButton 
                 :loading="isLoading"
@@ -113,7 +121,7 @@
                 <UButton 
                 @click="signInWithProvider('GITHUB')"
                 :disabled="isLoading"
-                color="black" label="Login with GitHub" 
+                color="black" label="Continue with GitHub" 
                 icon="i-lucide-github" block />
               </div>
             </UForm>

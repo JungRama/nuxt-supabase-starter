@@ -1,15 +1,27 @@
 <script setup>
 const commandPaletteRef = ref()
 
+const router = useRouter()
+
 const recents = [
   { id: '1', label: 'Notes with mastering app, 1hr ago',},
   { id: '2', label: 'Notes with the greatest comeback, 1hr ago',},
 ]
 
 const commands = [
-  { id: 'list-note', label: 'List Notes', icon: 'i-lucide-sticky-note', click: () => alert('New Notes') },
-  { id: 'new-note', label: 'New Note', icon: 'i-lucide-file-plus-2', click: () => alert('New folder') },
-  { id: 'view-storage', label: 'View Storage', icon: 'i-lucide-archive-restore', click: () => alert('Add hashtag') }
+  { id: 'list-note', label: 'All Code', icon: 'i-lucide-terminal-square', 
+  click: () => {
+    console.log('test');
+    alert('test')
+    router.push('/dashboard/code-editor')
+  }},
+  { id: 'new-note', label: 'New Code', icon: 'i-lucide-file-plus-2', 
+  click: () => {
+    // alert('1')
+    // newCode()
+  }},
+  { id: 'view-storage', label: 'View Storage', icon: 'i-lucide-archive-restore', 
+  click: () => alert('Add hashtag') }
 ]
 
 const groups = [{

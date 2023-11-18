@@ -5,10 +5,16 @@ export default defineNuxtConfig({
 		icons: ['lucide'],
 	},
 	supabase: {
-		redirectOptions: {
-			login: '/sign-in',
-			callback: '/confirm',
-			exclude: ['/', '/sign-up'],
+		redirect: false,
+		// redirectOptions: {
+		// 	login: '/sign-in',
+		// 	callback: '/confirm',
+		// 	exclude: ['/', '/sign-up', '/code/:id'],
+		// },
+	},
+	runtimeConfig: {
+		public: {
+			APP_URL: process.env.APP_URL,
 		},
 	},
 	modules: [
