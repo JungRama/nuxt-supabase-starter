@@ -19,18 +19,6 @@ import type { VerticalNavigationLink } from '@nuxt/ui/dist/runtime/types';
     });
   })
 
-  // active?: boolean
-  // exact?: boolean
-  // exactQuery?: boolean
-  // exactMatch?: boolean
-  // inactiveClass?: string
-  // label: string
-  // icon?: string
-  // iconClass?: string
-  // avatar?: Avatar
-  // click?: Function
-  // badge?: string | number
-
   const linksTopNav = reactive([{
     label: 'Dashboard',
     icon: 'i-lucide-home',
@@ -102,7 +90,6 @@ import type { VerticalNavigationLink } from '@nuxt/ui/dist/runtime/types';
           
           <div class="flex items-center justify-between p-3">
             <div class="flex items-center gap-2">
-              <!-- {{ auth }} -->
               <UAvatar
               size="sm"
               :alt="auth?.email"

@@ -11,6 +11,7 @@
     setDetailId,
     loadingDataDetail,
     executeDataDetail,
+    errorDataDetail,
     loadingState,
     update
   } = useCodeFetch()
@@ -29,7 +30,14 @@
     setDetailId(route.params.id as string)
     await executeDataDetail()
 
-    const channels = client.channel('custom-filter-channel')
+    if(errorDataDetail) {
+      throw createError({
+        statusCode: 404,
+        statusMessage: 'Page Not Found',
+      })
+    }
+
+    client.channel(`${route.params.id}`)
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'codes', filter: `id=eq.${route.params.id}` },

@@ -24,13 +24,14 @@ const useCodeFetch = () => {
 	const {
 		data: dataDetail,
 		pending: isLoadingDataDetail,
+		error: errorDataDetail,
 		execute: executeDataDetail,
 	} = useAsyncData(
 		'restaurant',
 		async () => {
 			const { data } = await client
 				.from('codes')
-				.select('id, title, language, updated_at, is_public,code')
+				.select('id, title, language, updated_at, is_public, code')
 				.eq('id', detailId.value as string)
 				.single()
 			return data
@@ -96,7 +97,9 @@ const useCodeFetch = () => {
 				...(input.name && { title: input.name }),
 				...(input.language && { language: input.language }),
 				...(input.code && { code: input.code }),
-				...(input.is_public && { is_public: input.is_public }),
+				...(input.is_public !== undefined
+					? { is_public: input.is_public }
+					: {}),
 				updated_at: new Date(),
 			}
 
@@ -158,6 +161,7 @@ const useCodeFetch = () => {
 		setDetailId: (id: string) => (detailId.value = id),
 		loadingDataDetail: isLoadingDataDetail,
 		executeDataDetail,
+		errorDataDetail,
 
 		update,
 	}

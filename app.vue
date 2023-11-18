@@ -18,7 +18,7 @@
       <NuxtPage />
       <UNotifications />
       
-      <select v-model="$colorMode.preference" class="border-l border-t absolute right-0 bottom-0 z-50 px-2 py-1 rounded-tl-lg">
+      <select v-model="$colorMode.preference" class="border-l border-t fixed right-0 bottom-0 z-50 px-2 py-1 rounded-tl-lg">
         <option value="system">System</option>
         <option value="light">Light</option>
         <option value="dark">Dark</option>
