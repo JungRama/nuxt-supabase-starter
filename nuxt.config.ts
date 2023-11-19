@@ -19,23 +19,5 @@ export default defineNuxtConfig({
 		'@vueuse/nuxt',
 		'@nuxtjs/supabase',
 		'@nuxt/content',
-		// [
-		// 	'@nuxtjs/i18n',
-		// 	{
-		// 		locales: ['en', 'in'],
-		// 		defaultLocale: 'en',
-		// 		vueI18n: {
-		// 			fallbackLocale: 'en',
-		// 			messages: {
-		// 				en: {
-		// 					greeting: 'Hello world!',
-		// 				},
-		// 				id: {
-		// 					greeting: '¡Hola mundo!',
-		// 				},
-		// 			},
-		// 		},
-		// 	},
-		// ],
 	],
 })

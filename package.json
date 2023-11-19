@@ -8,8 +8,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "preview": "nuxt preview"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -28,7 +27,6 @@
     "@nuxt/content": "^2.9.0",
     "@nuxt/ui": "^2.10.0",
     "@nuxtjs/i18n": "^8.0.0-beta12",
-    "@tiptap/pm": "^2.1.12",
     "@vueuse/nuxt": "^10.6.1",
     "chart.js": "^4.4.0",
     "date-fns": "^2.30.0",

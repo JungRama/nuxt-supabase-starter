@@ -45,7 +45,7 @@
     </header>
     <!-- ========== END HEADER ========== -->
     <!-- Hero -->
-    <div class="relative min-h-[80vh] flex items-center justify-center overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('/landing-pattern-square.svg')] before:bg-no-repeat before:bg-top before:w-full before:h-full before:-z-[1] before:transform before:-translate-x-1/2 dark:before:bg-[url('/landing-pattern-square-dark.svg')]">
+    <div class="relative min-h-[80vh] flex items-center justify-center overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('/landing-pattern-square.svg')] before:bg-no-repeat before:w-full before:h-full before:-z-[1] before:transform before:bg-bottom before:-translate-x-1/2 dark:before:bg-[url('/landing-pattern-square-dark.svg')]">
       <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">
         <!-- Announcement Banner -->
         <div class="flex justify-center">
