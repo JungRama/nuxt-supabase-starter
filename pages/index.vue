@@ -5,7 +5,7 @@
 
   const toast = useToast()
 
-  const packageInstall = 'npx install @nuxtjs/supabase'
+  const packageInstall = 'npx create-nuxt-supabase my-app'
 
   const copyText = () => {
     navigator.clipboard.writeText(packageInstall);
