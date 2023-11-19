@@ -59,7 +59,7 @@ try {
 	cleanSpinner.succeed()
 
 	const npmSpinner = ora('Installing dependencies...').start()
-	// await exec('npm install')
+	await exec('npm install')
 	npmSpinner.succeed()
 
 	console.log('The installation is done!')

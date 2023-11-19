@@ -2,7 +2,7 @@
   "name": "nuxt-supabase-starter",
   "author": "jungrama",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "build": "nuxt build",
