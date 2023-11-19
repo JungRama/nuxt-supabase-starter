@@ -28,63 +28,64 @@ export const charts = [
 export const library = [
 	{
 		title: 'nuxt/ui',
-		description: 'Ui library provided by Nuxt JS',
+		description: 'Fully styled and customizable components for Nuxt. ✨',
 		isDone: true,
 	},
 	{
 		title: 'nuxt/icon',
-		description: 'Ui library provided by Nuxt JS',
+		description: 'Add 100,000+ ready to use icons by iconify',
 		isDone: true,
 	},
 	{
 		title: 'nuxtjs/color-mode',
-		description: 'Ui library provided by Nuxt JS',
+		description:
+			'Dark and Light mode with auto detection made easy with Nuxt 🌗',
 		isDone: true,
 	},
 	{
 		title: 'vueuse/nuxt',
-		description: 'Ui library provided by Nuxt JS',
+		description:
+			'Provides better Nuxt integration for VueUse auto-import capabilities.',
 		isDone: true,
 	},
 	{
 		title: 'nuxtjs/supabase',
-		description: 'Ui library provided by Nuxt JS',
+		description: 'Wrapper around supabase-js to enable integration with Nuxt.',
 		isDone: true,
 	},
 	{
-		title: 'nuxtjs/i18n',
-		description: 'Ui library provided by Nuxt JS',
+		title: 'nuxtjs/i18n  (WIP)',
+		description:
+			'Overrides Nuxt default routes to add locale prefixes to every URL',
 		isDone: false,
 	},
 	{
-		title: 'pinia/nuxt',
-		description: 'Ui library provided by Nuxt JS',
+		title: 'pinia/nuxt (WIP)',
+		description:
+			'Pinia is a store library for Vue, share a state across components/pages.',
 		isDone: false,
 	},
 	{
 		title: 'vue-chart-js',
-		description: 'Ui library provided by Nuxt JS',
-		isDone: false,
+		description: '⚡ Easy and beautiful charts with Chart.js and Vue.js',
+		isDone: true,
 	},
 	{
 		title: 'yup',
-		description: 'Ui library provided by Nuxt JS',
-		isDone: false,
+		description: 'Dead simple Object schema validation.',
+		isDone: true,
 	},
 	{
 		title: 'monaco-editor',
-		description: 'Ui library provided by Nuxt JS',
-		isDone: false,
+		description:
+			'The Monaco Editor is the fully featured code editor from VS Code. ',
+		isDone: true,
 	},
 	{
 		title: 'date-fns',
-		description: 'Ui library provided by Nuxt JS',
-		isDone: false,
-	},
-	{
-		title: 'underscore',
-		description: 'Ui library provided by Nuxt JS',
-		isDone: false,
+		description:
+			'Simple and consistent toolset for manipulating JavaScript dates',
+		isDone: true,
 	},
 ]
 

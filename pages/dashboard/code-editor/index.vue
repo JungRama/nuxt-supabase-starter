@@ -45,7 +45,7 @@
     </div>
     <div class="grid grid-cols-12 gap-[15px] lg:gap-[15px]">
       <template v-if="loadingState.get">        
-        <div class="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-4" v-for="_ in 6" :key="'skeleton'+_">
+        <div class="col-span-12 md:col-span-12 lg:col-span-6 xl:col-span-4" v-for="_ in 6" :key="'skeleton'+_">
           <UCard>
             <div class="flex justify-between items-center">
               <div>
@@ -80,7 +80,7 @@
           </div>
         </div>
         
-        <div class="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-4" v-for="(item) in data" :key="item.id">
+        <div class="col-span-12 md:col-span-12 lg:col-span-6 xl:col-span-4" v-for="(item) in data" :key="item.id">
           <UCard>
             <div class="flex justify-between items-center">
               <div>

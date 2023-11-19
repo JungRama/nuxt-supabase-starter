@@ -1,7 +1,6 @@
 <script setup lang="ts">
-  import type { FileObject } from '@supabase/storage-js/src/lib/types'
+  import type { FileObject } from '@supabase/storage-js'
   
-  const client = useSupabaseClient()
   const toast = useToast()
   const auth = useSupabaseUser()
   const { actionGet, actionGetImageDetail, actionUpload, actionRemove, loadingState } = useStorageAction()
@@ -137,7 +136,7 @@
 <template>
   <div class="w-full mx-auto my-16 space-y-[30px] max-w-7xl">
     <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-bold pt-5 max-w-[400px]">
+      <h1 class="text-2xl font-bold pt-5 max-w-[400px]">
         Storage
       </h1>
       <UButton class="h-10" color="white" :disabled="loadingState.upload" :loading="loadingState.upload"
@@ -148,8 +147,8 @@
     </div>
 
     <div class="grid grid-cols-12 gap-[15px] lg:gap-[15px]" v-if="!loadingState.get && fileList?.length > 0">
-      <div class="col-span-12 md:col-span-6 lg:col-span-3 xl:col-span-3">
-        <div class="border-r border-gray-200 dark:border-stone-800 h-[75vh] pr-3 flex flex-col gap-3">
+      <div class="col-span-12 md:col-span-6 lg:col-span-5 xl:col-span-3">
+        <div class="md:border-r border-gray-200 dark:border-stone-800 md:h-[75vh] pr-0 md:pr-3 flex flex-col gap-3">
           <template v-if="loadingState.get" v-for="_ in 5" :key="'skeleton'+_">
             <USkeleton class="h-14 w-[full]" />
           </template>
@@ -158,7 +157,7 @@
             <UCard :ui="{
               body: {
                 base: 'flex items-center gap-2 cursor-pointer',
-                padding: 'px-1 py-1 sm:p-3'
+                padding: 'p-2 sm:p-3'
               }
             }"
             v-for="(item, index) in fileList" :key="index"
@@ -176,7 +175,7 @@
         </div>
       </div>
 
-      <div class="col-span-12 md:col-span-6 lg:col-span-9 xl:col-span-9">
+      <div class="col-span-12 md:col-span-6 lg:col-span-7 xl:col-span-9">
         <div v-if="dataDetail.id">
           <div class="flex h-56 w-full items-center 2xl:h-72 border border-gray-200 dark:border-stone-800">
             <div v-if="dataDetail.image && !loadingState.getImageDetail"
@@ -189,7 +188,7 @@
             </div>
           </div>
 
-          <div class="flex justify-between mt-3">
+          <div class="flex md:flex-col lg:flex-row justify-between mt-3 gap-3">
             <div>
               <p>{{ dataDetail.name }}</p>
               <div class="flex gap-2">

@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import MonacoCodeEditor from '~/components/monaco-code-editor.client.vue';
 
-  import _ from 'underscore'
   const runtimeConfig = useRuntimeConfig();
 
   const toast = useToast()
@@ -35,15 +34,16 @@
   language.value = data.value?.language ?? ''
   is_public.value = data.value?.is_public ?? false
 
-  const saveName = _.debounce(function () {
+  const saveName = useDebounceFn(() => {
     actionUpdate(
     route.params.id as string,
     {
       name: title.value
     })
   }, 1500)
+  
 
-  const saveCode = _.debounce(function (code: string) {
+  const saveCode = useDebounceFn((code: string) => {
     actionUpdate(
     route.params.id as string,
     {

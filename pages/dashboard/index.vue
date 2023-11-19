@@ -6,7 +6,7 @@
   <div class="w-full mx-auto my-16 space-y-[30px] max-w-7xl">
     <!-- /* ------------------------------- Charts Data ------------------------------ */ -->
     <div class="grid grid-cols-12 gap-[15px] lg:gap-[15px]">
-      <div class="col-span-12 md:col-span-6 lg:col-span-3 xl:col-span-3" v-for="item in charts">
+      <div class="col-span-12 md:col-span-6 lg:col-span-6 xl:col-span-3" v-for="item in charts">
         <UCard class="h-full flex flex-col justify-center">
           <div class="flex gap-2">
             <div class="rounded-full bg-primary h-8 w-8 flex items-center justify-center text-black">
@@ -30,7 +30,7 @@
     </h1>
     <div class="grid grid-cols-12 gap-[15px] lg:gap-[15px]">
       <!-- /* ------------------------------- Library List ------------------------------ */ -->
-      <div class="col-span-12 md:col-span-6 lg:col-span-6">
+      <div class="col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-6">
         <UCard class="h-full flex flex-col justify-start">
           <p class="mb-3 text-2xl">✨ Library List</p>
           <div class="grid grid-cols-12 gap-[15px] lg:gap-[15px]">
@@ -45,7 +45,7 @@
       </div>
 
       <!-- /* ------------------------------- Repository ------------------------------ */ -->
-      <div class="col-span-12 md:col-span-3 lg:col-span-3">
+      <div class="col-span-12 md:col-span-12 lg:col-span-6 xl:col-span-3">
         <UCard class="h-full flex flex-col justify-start">
           <p class="mb-3 text-2xl">🚀 Feature List</p>
           <div class="grid grid-cols-12 gap-[15px] lg:gap-[15px]">
@@ -67,8 +67,8 @@
       </div>
 
       <!-- /* ------------------------------- Social Media ------------------------------ */ -->
-      <div class="col-span-12 md:col-span-3 lg:col-span-3">
-        <UCard class="h-full flex flex-col justify-center">
+      <div class="col-span-12 md:col-span-12 lg:col-span-6 xl:col-span-3">
+        <UCard class="h-full flex flex-col justify-start">
           <div class="flex mb-4">
             <a href="https://github.com/JungRama/nuxt-supabase-starter"
               target="_blank" rel="noopener noreferrer">

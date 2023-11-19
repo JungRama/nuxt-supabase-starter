@@ -2,7 +2,6 @@
   import MonacoCodeEditor from '~/components/monaco-code-editor.client.vue';
   import { useCodeQuery } from '~/composables/query/code'
 
-  import _ from 'underscore'
   const route = useRoute();
 
   const { 

@@ -2,33 +2,33 @@
 const commandPaletteRef = ref()
 
 const router = useRouter()
+const { actionCreate } = useCodeAction()
 
-const recents = [
-  { id: '1', label: 'Notes with mastering app, 1hr ago',},
-  { id: '2', label: 'Notes with the greatest comeback, 1hr ago',},
-]
+const emit = defineEmits(['close'])
 
 const commands = [
   { id: 'list-note', label: 'All Code', icon: 'i-lucide-terminal-square', 
   click: () => {
-    console.log('test');
-    alert('test')
     router.push('/dashboard/code-editor')
+    emit('close')
   }},
+
   { id: 'new-note', label: 'New Code', icon: 'i-lucide-file-plus-2', 
-  click: () => {
-    // alert('1')
-    // newCode()
+  click: async () => {
+    const create = await actionCreate()
+    if(!create) return
+    router.push(`/dashboard/code-editor/${create.id}`)
+    emit('close')
   }},
+
   { id: 'view-storage', label: 'View Storage', icon: 'i-lucide-archive-restore', 
-  click: () => alert('Add hashtag') }
+  click: () => {
+    router.push('/dashboard/storage')
+    emit('close')
+  }},
 ]
 
 const groups = [{
-  key: 'recents',
-  label: 'Recent Notes',
-  commands: recents
-}, {
   key: 'commands',
   label: 'Commands',
   inactive: 'Command',
@@ -60,6 +60,17 @@ const ui = {
     }
   }
 }
+
+function onSelect (option) {
+  if (option.click) {
+    option.click()
+  } else if (option.to) {
+    router.push(option.to)
+  } else if (option.href) {
+    window.open(option.href, '_blank')
+  }
+}
+
 </script>
 
 <template>
@@ -69,6 +80,7 @@ const ui = {
     icon=""
     :ui="ui"
     :autoselect="false"
-    placeholder="Search for recent notes and commands"
+    placeholder="Search for commands"
+    @update:model-value="onSelect"
   />
 </template>

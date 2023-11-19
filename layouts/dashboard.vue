@@ -1,17 +1,28 @@
 <script setup lang="ts">
-import type { VerticalNavigationLink } from '@nuxt/ui/dist/runtime/types';
+  // import { vOnClickOutside } from '@vueuse/components'
 
   const isSearchOpen = ref(false)
 
-  const route = useRoute()
   const router = useRouter()
 
   const auth = useSupabaseUser()
   const { auth: authAction } = useSupabaseClient()
 
-  const routeName = ref(route.name)
+  const menuOpen = ref(true)
+
+  onBeforeMount(() => {
+    if(window) {
+      window.addEventListener('resize', () =>{
+        if(window.innerWidth < 768) menuOpen.value = false
+      })
+  
+      if(window.innerWidth < 768) menuOpen.value = false
+    }
+  })
+
 
   onMounted(() => {
+
     document.addEventListener('keydown', function(event) {
       if (event.ctrlKey && event.key === '/') {
         isSearchOpen.value = !isSearchOpen.value
@@ -54,12 +65,30 @@ import type { VerticalNavigationLink } from '@nuxt/ui/dist/runtime/types';
     await authAction.signOut();
     router.push('/sign-in')
   }
+
+  onMounted(() => {
+    onClickOutside(document.getElementById('#menu-admin-top'), (event) => console.log(event))
+  })
 </script>
 
 <template>
   <div class="flex max-h-full">
-    <div class="h-full bg-background w-64 px-2 overflow-auto border-r border-gray-200 dark:border-stone-800 sticky top-0">
-      <div class="py-2 flex flex-col justify-between h-[100vh]">
+    <div class="fixed z-10 p-2 bg-stone-900 left-2 top-2 rounded-lg w-10 h-10 flex md:hidden items-center justify-center"
+      @click="menuOpen = !menuOpen">
+      <UIcon name="i-lucide-menu"></UIcon>
+    </div>
+
+    <div class="menu-overlay fixed top-0 left-0 w-full h-full bg-black opacity-20 z-40"
+    v-if="menuOpen"
+    @click="menuOpen = !menuOpen"
+    ></div>
+
+    <div class="h-full w-64 px-2 overflow-auto border-r border-gray-200 dark:border-stone-800 md:sticky top-0
+    fixed z-50 bg-white dark:bg-stone-950 md:bg-transparent"
+    id="menu-admin-top"
+    v-if="menuOpen"
+    >
+      <div class="py-2 flex flex-col justify-between h-[100vh] bg-background">
         <div class="flex flex-col gap-3">
           <NuxtLink to="/dashboard">
             <div class="flex items-center justify-start gap-2">
@@ -111,7 +140,7 @@ import type { VerticalNavigationLink } from '@nuxt/ui/dist/runtime/types';
     </div>
 
     <UModal v-model="isSearchOpen">
-      <SearchGlobal></SearchGlobal>
+      <SearchGlobal @close="isSearchOpen = false"></SearchGlobal>
     </UModal>
   </div>
 </template>

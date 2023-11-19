@@ -6,11 +6,6 @@ export default defineNuxtConfig({
 	},
 	supabase: {
 		redirect: false,
-		// redirectOptions: {
-		// 	login: '/sign-in',
-		// 	callback: '/confirm',
-		// 	exclude: ['/', '/sign-up', '/code/:id'],
-		// },
 	},
 	runtimeConfig: {
 		public: {
