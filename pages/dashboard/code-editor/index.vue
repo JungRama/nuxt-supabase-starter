@@ -1,24 +1,35 @@
 <script setup lang="ts">
   import { formatDistanceToNow, parseISO } from 'date-fns';
-  import useCodeFetch from '~/composables/use-code-fetch'
   
   const router = useRouter();
 
-  const { 
-    data,
-    loadingData,
-    executeData,
-    executeCreate,
+  const {
     loadingState,
-    executeRemove,
-   } = useCodeFetch()
+    actionGet,
+    actionCreate,
+    actionRemove
+   } = useCodeAction()
   
-  await executeData()
+  const data = ref<any[]>([])
+
+  const getCode = async () => {
+    const fetched = await actionGet()
+    if(fetched) {
+      data.value = fetched
+    }
+  }
+
+  getCode()
 
   const newCode = async () => {
-    const create = await executeCreate()
+    const create = await actionCreate()
     if(!create) return
     router.push(`/dashboard/code-editor/${create.id}`)
+  }
+
+  const removeCode = async (id: string) => {
+    await actionRemove(id)
+    getCode()
   }
 
 </script>
@@ -33,7 +44,7 @@
       </UButton>
     </div>
     <div class="grid grid-cols-12 gap-[15px] lg:gap-[15px]">
-      <template v-if="loadingData">        
+      <template v-if="loadingState.get">        
         <div class="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-4" v-for="_ in 6" :key="'skeleton'+_">
           <UCard>
             <div class="flex justify-between items-center">
@@ -81,7 +92,7 @@
                   <UIcon name="i-lucide-edit h-10 w-10"/>
                 </UButton>
 
-                <UButton class="h-10 w-10" color="red" @click="executeRemove(item.id)" :disabled="loadingState.remove && loadingState.removeId == item.id" :loading="loadingState.remove && loadingState.removeId == item.id">
+                <UButton class="h-10 w-10" color="red" @click="removeCode(item.id)" :disabled="loadingState.remove && loadingState.removeOnId == item.id" :loading="loadingState.remove && loadingState.removeOnId == item.id">
                   <UIcon name="i-lucide-trash h-10 w-10"/>
                 </UButton>
               </div>
@@ -96,4 +107,4 @@
 
 <style scoped>
 
-</style>
+</style>~/composables/use-code-action

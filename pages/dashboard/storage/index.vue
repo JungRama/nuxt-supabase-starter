@@ -1,98 +1,12 @@
 <script setup lang="ts">
+  import type { FileObject } from '@supabase/storage-js/src/lib/types'
+  
   const client = useSupabaseClient()
   const toast = useToast()
   const auth = useSupabaseUser()
+  const { actionGet, actionGetImageDetail, actionUpload, actionRemove, loadingState } = useStorageAction()
 
-  import type { FileObject } from '@supabase/storage-js/src/lib/types'
-
-  const {
-		data: fileList,
-		refresh,
-		pending: isLoadingData,
-		execute,
-	} = useAsyncData(
-		'codes',
-		async () => {
-      const { data, error } = await client
-      .storage
-      .from('bucket-name')
-      .list(auth.value?.id, {
-        limit: 5,
-        offset: 0,
-        sortBy: { column: 'name', order: 'asc' },
-      })
-
-      return data
-		},
-		{
-			immediate: false,
-		}
-	)
-
-  execute()
-
-  const upload = async (event: any) => {
-    try {
-      if((fileList.value?.length ?? 0) >= 5) {
-        toast.add({
-          color: "red",
-          icon: "i-lucide-upload",
-          title: 'For demo purpose, we limit the upload to only 5 files',
-        })
-
-        return
-      }
-
-      const file = event.target.files[0]
-
-      if (!file.type.startsWith('image/')) {
-        toast.add({
-          color: "red",
-          icon: "i-lucide-upload",
-          title: 'Please select an image file.',
-        })
-        return;
-      }
-
-      if (file.size > 1024 * 1024) { 
-        toast.add({
-          color: "red",
-          icon: "i-lucide-upload",
-          title: 'File size must be 1MB or less.',
-        })
-        return;
-      }
-
-      loadingState.upload = true
-
-      const { data, error } = await client.storage.from('bucket-name').upload(`${auth.value?.id}/${file.name}`, file, {
-        upsert: true
-      })
-      
-      if(error) throw error
-      
-      if(data) {
-        toast.add({
-          color: "green",
-          icon: "i-lucide-upload",
-          title: 'Success uploading file!',
-        })
-      }
-
-      refresh()
-
-      loadingState.upload = false
-    } catch (error) {
-      loadingState.upload = false
-
-      toast.add({
-				color: 'red',
-				icon: 'i-lucide-alert-triangle',
-				title: error as string,
-			})
-    }
-  }
-
+  const fileList = ref<FileObject[]>([])
   const dataDetail = reactive<{
     id: string | null
     name: string | null
@@ -109,10 +23,70 @@
     mimetype: null,
   })
 
+
+  const getFileList = async () => {
+    const fetched = await actionGet(auth.value?.id ?? '')
+    if(fetched) {
+      fileList.value = fetched
+    }
+  }
+
+  getFileList()
+  
   const selectFile = () => {
     document.getElementById('input-file-upload')?.click()
   }
 
+  const isFileValidateError = (file: File) => {
+    if((fileList.value?.length ?? 0) >= 5) {
+      toast.add({
+        color: "red",
+        icon: "i-lucide-upload",
+        title: 'For demo purpose, we limit the upload to only 5 files',
+      })
+
+      return true
+    }
+
+    if (!file.type.startsWith('image/')) {
+      toast.add({
+        color: "red",
+        icon: "i-lucide-upload",
+        title: 'Please select an image file.',
+      })
+      return true
+    }
+
+    if (file.size > 1024 * 1024) { 
+      toast.add({
+        color: "red",
+        icon: "i-lucide-upload",
+        title: 'File size must be 1MB or less.',
+      })
+      return true
+    }
+  }
+
+  const upload = async (event: any) => {
+    try {
+      const file = event.target.files[0]
+
+      if(isFileValidateError(file)) return
+
+      await actionUpload(file, auth.value?.id ?? '', new Date().toISOString().replace(/[:.T-]/g, '').slice(0, -1))
+      getFileList()
+
+    } catch (error) {
+      loadingState.upload = false
+
+      toast.add({
+				color: 'red',
+				icon: 'i-lucide-alert-triangle',
+				title: error as string,
+			})
+    }
+  }
+  
   const seeDetail = async (item: FileObject) => {
     dataDetail.id = item.id
     dataDetail.name = item.name
@@ -120,23 +94,17 @@
     dataDetail.size = item.metadata.size
     dataDetail.updated_at = item.updated_at
 
-    const { data, error } = await client
-    .storage
-    .from('bucket-name')
-    .createSignedUrl(`${auth.value?.id}/${item.name}`, 60)
+    const data = await actionGetImageDetail(`${auth.value?.id}/${dataDetail.name}`)
 
-    dataDetail.image = data?.signedUrl ?? null
+    if(data) {
+      dataDetail.image = data?.signedUrl ?? null
+    }
   }
-  
-  const loadingState = reactive({
-    upload: false
-  })
 
   const deleteFile = async () => {
-    const { data, error } = await client
-    .storage
-    .from('bucket-name')
-    .remove([`${auth.value?.id}/${dataDetail.name}`])
+    if(!auth.value?.id || !dataDetail.name) return 
+
+    await actionRemove(auth.value?.id, dataDetail.name)
 
     dataDetail.id = null
     dataDetail.name = null
@@ -145,7 +113,7 @@
     dataDetail.image = null
     dataDetail.mimetype = null
 
-    refresh()
+    getFileList()
   }
 
   const convertFileSize = (fileSize: number) =>  {
@@ -179,12 +147,10 @@
       <input type="file" accept="image/*" class="hidden" id="input-file-upload" @change="upload">
     </div>
 
-    
-
-    <div class="grid grid-cols-12 gap-[15px] lg:gap-[15px]" v-if="!isLoadingData && fileList?.length > 0">
+    <div class="grid grid-cols-12 gap-[15px] lg:gap-[15px]" v-if="!loadingState.get && fileList?.length > 0">
       <div class="col-span-12 md:col-span-6 lg:col-span-3 xl:col-span-3">
         <div class="border-r border-gray-200 dark:border-stone-800 h-[75vh] pr-3 flex flex-col gap-3">
-          <template v-if="isLoadingData" v-for="_ in 5" :key="'skeleton'+_">
+          <template v-if="loadingState.get" v-for="_ in 5" :key="'skeleton'+_">
             <USkeleton class="h-14 w-[full]" />
           </template>
           
@@ -213,9 +179,13 @@
       <div class="col-span-12 md:col-span-6 lg:col-span-9 xl:col-span-9">
         <div v-if="dataDetail.id">
           <div class="flex h-56 w-full items-center 2xl:h-72 border border-gray-200 dark:border-stone-800">
-            <div v-if="dataDetail.image"
+            <div v-if="dataDetail.image && !loadingState.getImageDetail"
             :style="{'background-image': `url(${dataDetail.image})`}"
             class="flex h-full w-full items-center justify-center bg-contain bg-center bg-no-repeat" alt="">
+            </div>
+
+            <div class="flex items-start justify-center w-full" v-else>
+              <UIcon name="i-lucide-loader" class="animate-spin"></UIcon>
             </div>
           </div>
 
@@ -235,7 +205,7 @@
 
             <div class="flex items-start">
               <div class="flex gap-2">
-                <UButton color="red" @click="deleteFile()">
+                <UButton color="red" @click="deleteFile()" :loading="loadingState.remove">
                   <UIcon name="i-lucide-trash"></UIcon>
                   Delete
                 </UButton>
@@ -258,7 +228,7 @@
       </div>
     </div>
 
-    <div class="relative flex justify-center items-center h-[300px]" v-if="!isLoadingData && fileList?.length <= 0 ">
+    <div class="relative flex justify-center items-center h-[300px]" v-if="!loadingState.get && fileList?.length <= 0 ">
       <div class="flex flex-col justify-center items-center relative z-10 gap-2">
         <UIcon name="i-lucide-layout-template" class="h-12 w-12"></UIcon>
         <h2 class="text-2xl font-bold">Storage is empty, <span class="underline cursor-pointer" @click="selectFile">add</span> new file</h2>

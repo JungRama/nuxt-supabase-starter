@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import MonacoCodeEditor from '~/components/monaco-code-editor.client.vue';
-  import useCodeFetch from '~/composables/use-code-fetch'
 
   import _ from 'underscore'
   const runtimeConfig = useRuntimeConfig();
@@ -8,31 +7,36 @@
   const toast = useToast()
 
   const { 
-    dataDetail,
-    setDetailId,
-    loadingDataDetail,
-    executeDataDetail,
     loadingState,
-    update
-  } = useCodeFetch()
+    actionGetById,
+    actionUpdate
+  } = useCodeAction()
 
   const route = useRoute();
 
-  // set current detail id
-  if(route.params.id) {
-    setDetailId(route.params.id as string)
-    await executeDataDetail()
+  const data = ref<any>(null)
+
+  const getCodeDetail = async () => {
+    if(!route.params.id) return
+
+    const fetched = await actionGetById(route.params.id as string)
+    if(fetched) {
+      data.value = fetched
+    }
   }
+
+  await getCodeDetail()
 
   const language = ref('typescript')
   const title = ref('')
   const is_public = ref(false)
-  title.value = dataDetail.value?.title ?? ''
-  language.value = dataDetail.value?.language ?? ''
-  is_public.value = dataDetail.value?.is_public ?? false
+
+  title.value = data.value?.title ?? ''
+  language.value = data.value?.language ?? ''
+  is_public.value = data.value?.is_public ?? false
 
   const saveName = _.debounce(function () {
-    update(
+    actionUpdate(
     route.params.id as string,
     {
       name: title.value
@@ -40,7 +44,7 @@
   }, 1500)
 
   const saveCode = _.debounce(function (code: string) {
-    update(
+    actionUpdate(
     route.params.id as string,
     {
       code
@@ -48,7 +52,7 @@
   }, 2500)
 
   const copyURL = () => {
-    const copyText = document.getElementById("input-copy-url-public");
+    const copyText: HTMLInputElement = document.getElementById("input-copy-url-public") as HTMLInputElement;
 
     if(copyText) {
       copyText.select();
@@ -64,7 +68,7 @@
   }
 
   watch(is_public, (value) => {
-    update(
+    actionUpdate(
     route.params.id as string,
     {
       is_public: value
@@ -76,8 +80,8 @@
 <template>
   <div>
     <div class="mt-5 rounded-md overflow-hidden">
-      <div v-if="loadingDataDetail">
-        Loading ...
+      <div class="h-[100vh] w-full flex items-center justify-center" v-if="loadingState.getById">
+        <UIcon name="i-lucide-loader" class="animate-spin"></UIcon>
       </div>
 
       <div v-else class="relative">
@@ -97,7 +101,7 @@
           
           <div class="flex gap-2">
             <USelect v-model="language" 
-            @change="update(
+            @change="actionUpdate(
             route.params.id as string,
             {
               language: language
@@ -137,7 +141,7 @@
           :language="language" 
           @change="saveCode"
           :editorClass="'h-[calc(100vh-110px)]'"
-          :code="dataDetail?.code"></MonacoCodeEditor>
+          :code="data?.code"></MonacoCodeEditor>
         </ClientOnly>
       </div>
     </div>
@@ -146,4 +150,4 @@
 
 <style scoped>
 
-</style>
+</style>~/composables/use-code-action

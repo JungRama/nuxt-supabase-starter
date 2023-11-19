@@ -1,13 +1,14 @@
 <script setup lang="ts">
   import { signUpValidation, type SchemaSignUpValidation } from '~/utils/formValidation'
   import type { FormSubmitEvent } from '#ui/types'
+  import { BaseError, useErrorHandler } from '~/composables/use-error-handler'
   
   definePageMeta({
     middleware: 'guest'
   })
 
   const { auth } = useSupabaseClient()
-  const toast = useToast()
+  const { errorHandler } = useErrorHandler()
 
   const form = reactive({
     email: undefined,
@@ -31,24 +32,15 @@
         password: form.password ?? ''
       })
 
-      console.log(signUp);
-      
-
       if(signUp.error) {
-        isLoading.value = false
-        throw signUp.error.message
+        throw new BaseError(signUp.error.status, signUp.error.message)
       }
 
       navigateTo('/dashboard')
       isLoading.value = false
     } catch (error) {
-
       isLoading.value = false
-      toast.add({
-        color: "red",
-        icon: "i-lucide-alert-triangle",
-        title: error as string,
-      })
+      errorHandler(error as BaseError)
     }
   }
 
@@ -62,23 +54,24 @@
     try {
       isLoading.value = true
       
-      let signIn = null
+      let signUp = null
 
       if(provider === 'GITHUB') {
-        signIn = await auth.signInWithOAuth({
+        signUp = await auth.signInWithOAuth({
           provider: 'github'
         })
       }
 
-      if(signIn?.error) {
+      if(signUp?.error) {
         isLoading.value = false
-        throw signIn.error.message
+        throw new BaseError(signUp.error.status, signUp.error.message)
       }
 
       navigateTo('/dashboard')
       isLoading.value = false
     } catch (error) {
-      
+      isLoading.value = false
+      errorHandler(error as BaseError)
     }
   }
 </script>

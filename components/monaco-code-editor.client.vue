@@ -1,11 +1,5 @@
 <script setup lang="ts">
   import * as monaco from 'monaco-editor'
-  import useCodeFetch from '~/composables/use-code-fetch'
-  
-  const { 
-    loadingState,
-    update
-  } = useCodeFetch()
 
   const colorMode = useColorMode()
 
@@ -31,7 +25,8 @@
   
   codeEditor.value = props?.code ?? ''
 
-  let editorInit = null
+  let editorInit: any = null
+
   onMounted(() => {
     editorInit = monaco.editor.create(document.getElementById("monaco-editor") as HTMLElement, {
       value: props.code,
@@ -50,17 +45,11 @@
     window.location.reload()
   })
 
-  watch(() => props.code, (first, second) => {
-      console.log(
-        "Watch props.selected function called with args:",
-        first,
-        second
-      );
-
-      if(editorInit) {
-        editorInit?.setValue(first)
-      }
-    });
+  watch(() => props.code, (newData) => {
+    if(editorInit) {
+      editorInit?.setValue(newData)
+    }
+  });
 </script>
 
 <template>

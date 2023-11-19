@@ -1,92 +1,73 @@
 <script setup lang="ts">
   import MonacoCodeEditor from '~/components/monaco-code-editor.client.vue';
+  import { useCodeQuery } from '~/composables/query/code'
 
   import _ from 'underscore'
-  const runtimeConfig = useRuntimeConfig();
-
-  const toast = useToast()
-
-  const { 
-    dataDetail,
-    setDetailId,
-    loadingDataDetail,
-    executeDataDetail,
-    errorDataDetail,
-    loadingState,
-    update
-  } = useCodeFetch()
-
   const route = useRoute();
 
-  const client = useSupabaseClient()
+  const { 
+    loadingState,
+    actionGetById,
+  } = useCodeAction()
+
+  const {
+    getRealtimeById
+  } = useCodeQuery()
 
   const language = ref('typescript')
   const title = ref('')
-  const is_public = ref(false)
-  const code = ref(null)
+  const code = ref('')
 
-  // set current detail id
-  if(route.params.id) {
-    setDetailId(route.params.id as string)
-    await executeDataDetail()
+  const getCodeDetail = async () => {
+    if(!route.params.id) return
 
-    if(errorDataDetail) {
-      throw createError({
-        statusCode: 404,
-        statusMessage: 'Page Not Found',
-      })
+    const fetched = await actionGetById(route.params.id as string)
+    if(fetched) {
+      title.value = fetched.title
+      language.value = fetched.language
+      code.value = fetched.code
     }
-
-    client.channel(`${route.params.id}`)
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'codes', filter: `id=eq.${route.params.id}` },
-        (payload) => {
-          console.log('Change received!', payload)
-          
-          title.value = payload.new?.title ?? ''
-          language.value = payload.new?.language ?? ''
-          code.value = payload.new?.code ?? ''
-        }
-      )
-      .subscribe()
-
-    
-    title.value = dataDetail.value?.title ?? ''
-    language.value = dataDetail.value?.language ?? ''
-    code.value = dataDetail.value?.code ?? ''
-    is_public.value = dataDetail.value?.is_public ?? false
-
   }
-  
+
+  onMounted(async () => {
+    await getCodeDetail()
+    getRealtimeById(route.params.id as string, (payload) => {
+      title.value = payload.new?.title ?? ''
+      language.value = payload.new?.language ?? ''
+      code.value = payload.new?.code ?? ''
+      code.value = payload.new?.code ?? ''
+    })
+  })
 </script>
 
 <template>
   <div>
     <div class="overflow-hidden">
-      <div v-if="loadingDataDetail">
-        Loading ...
+      <div v-if="loadingState.getById" class="h-[100vh] w-full flex items-center justify-center">
+        <UIcon name="i-lucide-loader" class="animate-spin"></UIcon>
       </div>
 
-      <div v-else class="relative">
-        <div class="header-file flex justify-between p-5 bg-white dark:bg-[#1e1e1e]">
-          <div class="flex items-center gap-2">
-            <p>{{title}}</p>
+      <div v-else>
+        <div class="relative">
+          <div class="header-file flex justify-between p-5 bg-white dark:bg-[#1e1e1e]">
+            <div class="flex items-center gap-2">
+              <p>{{title}}</p>
+            </div>
+            
+            <div class="flex gap-2">
+              Language: {{ language }}
+            </div>
           </div>
-          
-          <div class="flex gap-2">
-            Language: {{ language }}
-          </div>
-        </div>
 
-        <ClientOnly>
-          <MonacoCodeEditor 
-          :id="(route.params.id as string)" 
-          :editorClass="'h-[calc(100vh-65px)]'"
-          :language="language" 
-          :readOnly="true"
-          :code="code"></MonacoCodeEditor>
-        </ClientOnly>
+          <ClientOnly>
+            <MonacoCodeEditor 
+            :id="(route.params.id as string)" 
+            :editorClass="'h-[calc(100vh-65px)]'"
+            :language="language" 
+            :readOnly="true"
+            :code="code"></MonacoCodeEditor>
+          </ClientOnly>
+        </div>
       </div>
     </div>
   </div>

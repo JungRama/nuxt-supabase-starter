@@ -1,9 +1,11 @@
 <script setup lang="ts">
   import { resetPasswordValidation, type SchemaResetPasswordValidation } from '~/utils/formValidation'
   import type { FormSubmitEvent } from '#ui/types'
+  import { BaseError, useErrorHandler } from '~/composables/use-error-handler'
 
   const { auth } = useSupabaseClient()
   const toast = useToast()
+  const { errorHandler } = useErrorHandler()
   
   const form = reactive({
     password: undefined
@@ -20,12 +22,12 @@
     try {
       isLoading.value = true
 
-      const signIn = await auth.updateUser({
+      const resetPassword = await auth.updateUser({
         password: form.password ?? ''
       })
 
-      if(signIn.error) {
-        throw signIn.error.message
+      if(resetPassword.error) {
+        throw new BaseError(resetPassword.error.status, resetPassword.error.message)
       }
 
       navigateTo('/sign-in')
@@ -38,13 +40,8 @@
 
       isLoading.value = false
     } catch (error) {
-
       isLoading.value = false
-      toast.add({
-        color: "red",
-        icon: "i-lucide-alert-triangle",
-        title: error as string,
-      })
+      errorHandler(error as BaseError)
     }
   }
 </script>

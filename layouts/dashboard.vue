@@ -61,13 +61,15 @@ import type { VerticalNavigationLink } from '@nuxt/ui/dist/runtime/types';
     <div class="h-full bg-background w-64 px-2 overflow-auto border-r border-gray-200 dark:border-stone-800 sticky top-0">
       <div class="py-2 flex flex-col justify-between h-[100vh]">
         <div class="flex flex-col gap-3">
-          <div class="flex items-center justify-start gap-2">
-            <img src="/icon.svg" class="h-[60px]">
-            <p class="text-lg leading-tight -mt-1">
-              Nuxt Supabase <br> 
-              Starter
-            </p>
-          </div>
+          <NuxtLink to="/dashboard">
+            <div class="flex items-center justify-start gap-2">
+              <img src="/icon.svg" class="h-[60px]">
+              <p class="text-lg leading-tight -mt-1">
+                Nuxt Supabase <br> 
+                Starter
+              </p>
+            </div>
+          </NuxtLink>
 
           <UVerticalNavigation 
           :links="linksTopNav">
