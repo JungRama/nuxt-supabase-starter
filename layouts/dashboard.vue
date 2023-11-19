@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  // import { vOnClickOutside } from '@vueuse/components'
-
   const isSearchOpen = ref(false)
 
   const router = useRouter()
@@ -19,7 +17,6 @@
       if(window.innerWidth < 768) menuOpen.value = false
     }
   })
-
 
   onMounted(() => {
 
@@ -78,7 +75,7 @@
       <UIcon name="i-lucide-menu"></UIcon>
     </div>
 
-    <div class="menu-overlay fixed top-0 left-0 w-full h-full bg-black opacity-20 z-40"
+    <div class="menu-overlay fixed top-0 left-0 w-full h-full bg-black opacity-20 z-40 block md:hidden"
     v-if="menuOpen"
     @click="menuOpen = !menuOpen"
     ></div>

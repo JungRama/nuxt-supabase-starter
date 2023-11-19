@@ -18,6 +18,7 @@ export default defineNuxtConfig({
 		'@nuxtjs/color-mode',
 		'@vueuse/nuxt',
 		'@nuxtjs/supabase',
+		'@nuxt/content',
 		// [
 		// 	'@nuxtjs/i18n',
 		// 	{

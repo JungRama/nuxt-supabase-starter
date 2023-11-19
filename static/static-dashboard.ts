@@ -54,9 +54,14 @@ export const library = [
 		isDone: true,
 	},
 	{
-		title: 'nuxtjs/i18n  (WIP)',
+		title: 'nuxtjs/i18n (WIP)',
 		description:
 			'Overrides Nuxt default routes to add locale prefixes to every URL',
+		isDone: false,
+	},
+	{
+		title: 'nuxtjs/content (WIP)',
+		description: 'Vue components in Markdown with the MDC syntax.',
 		isDone: false,
 	},
 	{
