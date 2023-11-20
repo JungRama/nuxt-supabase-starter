@@ -60,14 +60,14 @@ export const library = [
 		isDone: false,
 	},
 	{
-		title: 'nuxtjs/content (WIP)',
-		description: 'Vue components in Markdown with the MDC syntax.',
-		isDone: false,
-	},
-	{
 		title: 'pinia/nuxt (WIP)',
 		description:
 			'Pinia is a store library for Vue, share a state across components/pages.',
+		isDone: false,
+	},
+	{
+		title: 'nuxtjs/content (WIP)',
+		description: 'Vue components in Markdown with the MDC syntax.',
 		isDone: false,
 	},
 	{
@@ -100,7 +100,7 @@ export const feature = [
 		isDone: true,
 		children: [
 			{
-				title: 'Local Auth',
+				title: 'Password Auth',
 				isDone: true,
 			},
 			{
@@ -122,7 +122,7 @@ export const feature = [
 				isDone: true,
 			},
 			{
-				title: 'Realtime listener',
+				title: 'Realtime code viewer',
 				isDone: true,
 			},
 		],

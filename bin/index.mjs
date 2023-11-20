@@ -13,7 +13,7 @@ const rm = promisify(fs.rm)
 if (process.argv.length < 3) {
 	console.log('You have to provide a name to your app.')
 	console.log('For example :')
-	console.log('    npx simple-ts-app my-app')
+	console.log('    npx nuxt-supabase-starter my-app')
 	process.exit(1)
 }
 
@@ -21,7 +21,6 @@ const projectName = process.argv[2]
 const currentPath = process.cwd()
 const projectPath = path.join(currentPath, projectName)
 
-// TODO: change to your boilerplate repo
 const git_repo = 'git@github.com:JungRama/nuxt-supabase-starter.git'
 
 // create project directory
@@ -35,12 +34,13 @@ if (fs.existsSync(projectPath)) {
 }
 
 try {
+	await exec('npm install ora')
 	const gitSpinner = ora('Downloading files...').start()
 	// clone the repo into the project folder -> creates the new boilerplate
 	await exec(`git clone --depth 1 ${git_repo} ${projectPath} --quiet`)
 	gitSpinner.succeed()
 
-	const cleanSpinner = ora('Removing useless files').start()
+	const cleanSpinner = ora('Generate nuxt supbase starter...').start()
 	// remove my git history
 	const rmGit = rm(path.join(projectPath, '.git'), {
 		recursive: true,
@@ -55,16 +55,13 @@ try {
 
 	process.chdir(projectPath)
 	// remove the packages needed for cli
-	await exec('npm uninstall ora cli-spinners')
+	await exec('npm uninstall ora')
 	cleanSpinner.succeed()
-
-	const npmSpinner = ora('Installing dependencies...').start()
-	await exec('npm install')
-	npmSpinner.succeed()
 
 	console.log('The installation is done!')
 	console.log('You can now run your app with:')
 	console.log(`    cd ${projectName}`)
+	console.log(`    npm install`)
 	console.log(`    npm run dev`)
 } catch (error) {
 	// clean up in case of error, so the user does not have to do it manually
