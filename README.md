@@ -1,4 +1,4 @@
-# Get Started
+# Nuxt Supabase Starter
 
 This starter help you kickstart your next project with nuxt and supabase
 without wasting much time to installing library and setup the needed utils.
@@ -23,8 +23,7 @@ NUXT_PUBLIC_SUPABASE_KEY="<SUPABASE_KEY>
 
 ## Demo
 
-https://github.com/JungRama/nuxt-supabase-starter/assets/31382668/14d0e0ae-1620-4180-a393-659052404cd8
-
+[![Watch the video]](https://raw.githubusercontent.com/JungRama/nuxt-supabase-starter/master/public/demo.mp4)
 
 ## Library
 
