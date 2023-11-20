@@ -15,6 +15,16 @@ npx nuxt-supabase-starter my-app
 
 ![cover](/github-cover.png 'cover')
 
+## Setup .env variable
+
+Copy the .env.example file and rename the copy to .env in the same directory.
+
+```
+NUXT_PUBLIC_APP_URL=<ENTER_APP_URL>
+NUXT_PUBLIC_SUPABASE_URL=<SUPABASE_URL>
+NUXT_PUBLIC_SUPABASE_KEY="<SUPABASE_KEY>
+```
+
 ## Library
 
 - ✅ **nuxt/ui**
