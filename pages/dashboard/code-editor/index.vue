@@ -57,12 +57,12 @@
                 <USkeleton class="h-4 w-[50px] mt-1" />
               </div>
               <div class="flex gap-2">
-                <UButton class="h-10 w-10 flex items-center justify-center">
-                  <UIcon name="i-lucide-edit h-8 w-8"/>
+                <UButton class="h-8 w-8 flex items-center justify-center">
+                  <UIcon name="i-lucide-edit"/>
                 </UButton>
                 
-                <UButton class="h-10 w-10 flex items-center justify-center" color="red">
-                  <UIcon name="i-lucide-trash h-8 w-8"/>
+                <UButton class="h-8 w-8 flex items-center justify-center" color="red">
+                  <UIcon name="i-lucide-trash"/>
                 </UButton>
               </div>
             </div>
@@ -92,12 +92,12 @@
                 <p class="text-xs opacity-50">updated {{item.updated_at ? formatDistanceToNow(parseISO(item.updated_at)) : ''}} ago</p>
               </div>
               <div class="flex gap-2">
-                <UButton class="h-10 w-10 flex items-center justify-center" :to="`/dashboard/code-editor/${item.id}`">
-                  <UIcon name="i-lucide-edit h-8 w-8"/>
+                <UButton class="h-8 w-8 flex items-center justify-center" :to="`/dashboard/code-editor/${item.id}`">
+                  <UIcon name="i-lucide-edit"/>
                 </UButton>
 
-                <UButton class="h-10 w-10 flex items-center justify-center" color="red" @click="removeCode(item.id)" :disabled="loadingState.remove && loadingState.removeOnId == item.id" :loading="loadingState.remove && loadingState.removeOnId == item.id">
-                  <UIcon name="i-lucide-trash h-8 w-8"/>
+                <UButton class="h-8 w-8 flex items-center justify-center" color="red" @click="removeCode(item.id)" :disabled="loadingState.remove && loadingState.removeOnId == item.id" :loading="loadingState.remove && loadingState.removeOnId == item.id">
+                  <UIcon name="i-lucide-trash"/>
                 </UButton>
               </div>
             </div>
