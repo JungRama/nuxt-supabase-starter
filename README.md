@@ -23,7 +23,8 @@ NUXT_PUBLIC_SUPABASE_KEY="<SUPABASE_KEY>
 
 ## Demo
 
-[![Watch the video]](https://raw.githubusercontent.com/JungRama/nuxt-supabase-starter/master/public/demo.mp4)
+https://github.com/JungRama/nuxt-supabase-starter/assets/31382668/14d0e0ae-1620-4180-a393-659052404cd8
+
 
 ## Library
 
