@@ -1,5 +1,9 @@
 <script setup lang="ts">
   import { charts } from '~/static/static-dashboard'
+  
+  useSeoMeta({
+    title: 'Dashboard - Nuxt Supabase Starter',
+  })
 </script>
 
 <template>

@@ -7,6 +7,10 @@
     middleware: 'guest'
   })
 
+  useSeoMeta({
+    title: 'Sign Up - Nuxt Supabase Starter',
+  })
+
   const { auth } = useSupabaseClient()
   const { errorHandler } = useErrorHandler()
 
@@ -58,7 +62,10 @@
 
       if(provider === 'GITHUB') {
         signUp = await auth.signInWithOAuth({
-          provider: 'github'
+          provider: 'github',
+          options: {
+            redirectTo: `${window.location.origin}/confirm`
+          }
         })
       }
 

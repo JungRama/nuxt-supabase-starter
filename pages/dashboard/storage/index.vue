@@ -1,5 +1,9 @@
 <script setup lang="ts">
   import type { FileObject } from '@supabase/storage-js'
+
+  useSeoMeta({
+    title: 'Storage - Nuxt Supabase Starter',
+  })
   
   const toast = useToast()
   const auth = useSupabaseUser()

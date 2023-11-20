@@ -54,23 +54,6 @@ export const library = [
 		isDone: true,
 	},
 	{
-		title: 'nuxtjs/i18n (WIP)',
-		description:
-			'Overrides Nuxt default routes to add locale prefixes to every URL',
-		isDone: false,
-	},
-	{
-		title: 'pinia/nuxt (WIP)',
-		description:
-			'Pinia is a store library for Vue, share a state across components/pages.',
-		isDone: false,
-	},
-	{
-		title: 'nuxtjs/content (WIP)',
-		description: 'Vue components in Markdown with the MDC syntax.',
-		isDone: false,
-	},
-	{
 		title: 'vue-chart-js',
 		description: '⚡ Easy and beautiful charts with Chart.js and Vue.js',
 		isDone: true,
@@ -91,6 +74,33 @@ export const library = [
 		description:
 			'Simple and consistent toolset for manipulating JavaScript dates',
 		isDone: true,
+	},
+	{
+		title: 'nuxtjs/i18n (WIP)',
+		description:
+			'Overrides Nuxt default routes to add locale prefixes to every URL',
+		isDone: false,
+	},
+	{
+		title: 'pinia/nuxt (WIP)',
+		description:
+			'Pinia is a store library for Vue, share a state across components/pages.',
+		isDone: false,
+	},
+	{
+		title: 'nuxtjs/content (WIP)',
+		description: 'Vue components in Markdown with the MDC syntax.',
+		isDone: false,
+	},
+	{
+		title: 'Unit Test (WIP)',
+		description: 'Unit testing using Vitest.',
+		isDone: false,
+	},
+	{
+		title: 'E2E Test (WIP)',
+		description: 'E2E test using Cypress.',
+		isDone: false,
 	},
 ]
 

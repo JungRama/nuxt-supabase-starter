@@ -7,6 +7,10 @@
     middleware: 'guest'
   })
 
+  useSeoMeta({
+    title: 'Forgot Passwrod - Nuxt Supabase Starter',
+  })
+
   const { auth } = useSupabaseClient()
   const toast = useToast()
   const { errorHandler } = useErrorHandler()

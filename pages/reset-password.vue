@@ -3,6 +3,10 @@
   import type { FormSubmitEvent } from '#ui/types'
   import { BaseError, useErrorHandler } from '~/composables/use-error-handler'
 
+  useSeoMeta({
+    title: 'Reset Password - Nuxt Supabase Starter',
+  })
+
   const { auth } = useSupabaseClient()
   const toast = useToast()
   const { errorHandler } = useErrorHandler()

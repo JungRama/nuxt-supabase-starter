@@ -3,9 +3,13 @@
     middleware: 'guest'
   })
 
+  useSeoMeta({
+    title: 'Nuxt Supabase Starter - Supercharged Your Project',
+  })
+
   const toast = useToast()
 
-  const packageInstall = 'npx nuxt-nuxt-supabase-starter my-app'
+  const packageInstall = 'npx nuxt-supabase-starter my-app'
 
   const copyText = () => {
     navigator.clipboard.writeText(packageInstall);

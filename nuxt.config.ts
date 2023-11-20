@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 					content:
 						'Nuxt and Supabase Starer to help you kickstart your next project.',
 				},
-				{ hid: 'og:image', name: 'og:image', content: '/og.png' },
+				{ hid: 'og:image', name: 'og:image', content: '/og-image.png' },
 			],
 			link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }],
 		},

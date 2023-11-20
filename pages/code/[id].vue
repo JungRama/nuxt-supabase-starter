@@ -4,6 +4,10 @@
 
   const route = useRoute();
 
+  definePageMeta({
+    layout: false,
+  })
+
   const { 
     loadingState,
     actionGetById,
@@ -25,6 +29,10 @@
       title.value = fetched.title
       language.value = fetched.language
       code.value = fetched.code
+
+      useSeoMeta({
+        title: (title.value ?? 'Untitled') + ' - Nuxt Supabase Starter',
+      })
     }
   }
 
@@ -35,6 +43,10 @@
       language.value = payload.new?.language ?? ''
       code.value = payload.new?.code ?? ''
       code.value = payload.new?.code ?? ''
+
+      useSeoMeta({
+        title: (title.value ?? 'Untitled') + ' - Nuxt Supabase Starter',
+      })
     })
   })
 </script>

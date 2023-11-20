@@ -1,6 +1,10 @@
 <script setup lang="ts">
   import { formatDistanceToNow, parseISO } from 'date-fns';
   
+  useSeoMeta({
+    title: 'Code Editor - Nuxt Supabase Starter',
+  })
+  
   const router = useRouter();
 
   const {

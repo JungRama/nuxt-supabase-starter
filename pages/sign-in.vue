@@ -7,8 +7,13 @@
     middleware: 'guest'
   })
 
+  useSeoMeta({
+    title: 'Sign In - Nuxt Supabase Starter',
+  })
+
   const { auth } = useSupabaseClient()
   const { errorHandler } = useErrorHandler()
+  const runtimeConfig = useRuntimeConfig()
   
   const form = reactive({
     email: undefined,
@@ -58,7 +63,7 @@
         signIn = await auth.signInWithOAuth({
           provider: 'github',
           options: {
-            redirectTo: '/confirm',
+            redirectTo: `${window.location.origin}/confirm`
           }
         })
       }

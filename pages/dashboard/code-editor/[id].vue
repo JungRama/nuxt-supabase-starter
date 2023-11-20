@@ -34,6 +34,10 @@
   language.value = data.value?.language ?? ''
   is_public.value = data.value?.is_public ?? false
 
+  useSeoMeta({
+    title: (title.value ?? 'Untitled') + ' - Nuxt Supabase Starter',
+  })
+
   const saveName = useDebounceFn(() => {
     actionUpdate(
     route.params.id as string,
