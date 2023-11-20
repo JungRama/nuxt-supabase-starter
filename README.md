@@ -1,75 +1,79 @@
-# Nuxt 3 Minimal Starter
+# Get Started
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This starter help you kickstart your next project with nuxt and supabase
+without wasting much time to installing library and setup the needed utils.
 
-## Setup
+## Install the starter kit
 
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+```
+npx nuxt-supabase-starter my-app
 ```
 
-## Development Server
+![cover](/github-cover.png 'cover')
 
-Start the development server on `http://localhost:3000`:
+## Demo
 
-```bash
-# npm
-npm run dev
+[![Watch the video](/demo.mp4)](/demo.mp4)
 
-# pnpm
-pnpm run dev
+## Library
 
-# yarn
-yarn dev
+- ✅ **nuxt/ui**
+  Fully styled and customizable components for Nuxt. ✨
 
-# bun
-bun run dev
-```
+- ✅ **nuxt/icon**
+  Add 100,000+ ready to use icons by iconify
 
-## Production
+- ✅ **nuxtjs/color-mode**
+  Dark and Light mode with auto detection made easy with Nuxt 🌗
 
-Build the application for production:
+- ✅ **vueuse/nuxt**
+  Provides better Nuxt integration for VueUse auto-import capabilities.
 
-```bash
-# npm
-npm run build
+- ✅ **nuxtjs/supabase**
+  Wrapper around supabase-js to enable integration with Nuxt.
 
-# pnpm
-pnpm run build
+- ✅ **vue-chart-js**
+  ⚡ Easy and beautiful charts with Chart.js and Vue.js
 
-# yarn
-yarn build
+- ✅ **yup**
+  Dead simple Object schema validation.
 
-# bun
-bun run build
-```
+- ✅ **monaco-editor**
+  The Monaco Editor is the fully featured code editor from VS Code.
 
-Locally preview production build:
+- ✅ **date-fns**
+  Simple and consistent toolset for manipulating JavaScript dates
 
-```bash
-# npm
-npm run preview
+- ⏳ **nuxtjs/i18n (WIP)**
+  Overrides Nuxt default routes to add locale prefixes to every URL
 
-# pnpm
-pnpm run preview
+- ⏳ **pinia/nuxt (WIP)**
+  Pinia is a store library for Vue, share a state across components/pages.
 
-# yarn
-yarn preview
+- ⏳ **nuxtjs/content (WIP)**
+  Vue components in Markdown with the MDC syntax.
 
-# bun
-bun run preview
-```
+- ⏳ **Unit Test (WIP)**
+  Unit testing using Vitest.
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- ⏳ **E2E Test (WIP)** E2E test using Cypress.
+
+## Feature
+
+- Authentication 🙂
+  - Password Auth 🔐
+  - OAuth with GitHub 🌐
+- Realtime Code Editor 💻
+  - CRUD (Create, Read, Update, Delete) 📝
+  - Share to Public 🌍
+  - Realtime Code Viewer 👀
+- Storage 💾
+  - Upload 📤
+  - Delete File 🗑️
+
+## Links
+
+- [Repository](https://github.com/JungRama/nuxt-supabase-starter)
+- [Github](https://github.com/JungRama)
+- [X](https://twitter.com/jungrama_id)
+- [LinkedIn](https://www.linkedin.com/in/jungrama/)

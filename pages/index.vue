@@ -70,6 +70,11 @@
     <!-- End Hero -->
 
     <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
+      <div class="relative">
+        <video src="/demo.mp4" id="demo-video" class="w-full mb-12 rounded-2xl border-[10px] dark:border-[#ffffff05] border-[#00000020]" 
+        poster="/poster-cover.png" controls></video>
+      </div>
+
       <ProductInformation></ProductInformation>
     </div>
   </div>
