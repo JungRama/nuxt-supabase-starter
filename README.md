@@ -9,11 +9,11 @@ without wasting much time to installing library and setup the needed utils.
 npx nuxt-supabase-starter my-app
 ```
 
-![cover](/github-cover.png 'cover')
+![cover](https://raw.githubusercontent.com/JungRama/nuxt-supabase-starter/master/public/github-cover.png 'cover')
 
 ## Demo
 
-[![Watch the video](/demo.mp4)](/demo.mp4)
+[![Watch the video](https://raw.githubusercontent.com/JungRama/nuxt-supabase-starter/master/public/demo.mp4)]
 
 ## Library
 
