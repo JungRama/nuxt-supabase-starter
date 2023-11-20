@@ -13,7 +13,7 @@ npx nuxt-supabase-starter my-app
 
 ## Demo
 
-[![Watch the video](https://raw.githubusercontent.com/JungRama/nuxt-supabase-starter/master/public/demo.mp4)]
+[![Watch the video]](https://raw.githubusercontent.com/JungRama/nuxt-supabase-starter/master/public/demo.mp4)
 
 ## Library
 
